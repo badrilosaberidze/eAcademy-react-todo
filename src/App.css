@@ -1,38 +1,158 @@
-.App {
-  text-align: center;
+body,
+html,
+.wrapper{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#root{
+    width: 100%;
+    height: 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.wrapper{
+    background-image: linear-gradient(rgb(93, 211, 255),rgb(65, 131, 242));
+    display: flex;
+    justify-content: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.container{
+    display: flex;
+    flex-direction: column;
 }
 
-.App-link {
-  color: #61dafb;
+.img{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-left: 5px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.input-line{
+    padding: 10px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 430px;
+}
+
+.button{
+    margin-left: 10px;
+    padding: 3px 4px;
+    background-color: rgb(60, 111, 251);
+}
+
+.button:hover{
+    cursor: pointer;
+    background-color: rgb(88, 129, 240);
+}
+
+input:focus{
+    outline: none;
+}
+
+.header{
+    font-size: 50px;
+    color: rgb(231, 243, 254);
+    padding: 0 100px;
+    margin-bottom: 20px;
+}
+
+input{
+    border: none;
+}
+
+#list-cont{
+    flex-grow:6;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 50px 20px;
+    max-width: 400px;
+}
+
+.blank{
+    flex-grow:1;
+}
+
+.list{
+    border-bottom: 1px solid black;
+    padding: 2px;
+    margin: 6px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+    flex-wrap: wrap;
+}
+
+.list-txt{
+    font-size: 20px;
+    color: rgb(160, 160, 160);
+}
+
+.imgs{
+    display: flex;
+    flex-direction: row;
+}
+
+.done-list{
+    background: radial-gradient(rgb(5, 252, 25),rgb(9, 124, 19));
+}
+
+.done-txt{
+    color: white;
+}
+
+.up , 
+.down{
+    background-color: rgb(163, 68, 68);
+    color:white;
+    border-radius: 20px;
+    font-size: 10px;
+}
+
+.up , 
+.down:hover{
+    cursor: pointer;
+}
+
+.up ,
+.down:focus{
+    outline: none;
+}
+
+.up{
+    margin-right: 3px;
+}
+
+.cBox{
+    width: 17px;
+    height: 17px;
+}
+
+#pop-up{
+    width: 200px;
+    height: 200px;
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    background-color: rgb(192, 40, 40);
+    border-radius: 0px 30px 0px 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:white;
+} 
+
+.edit-wrapper{
+    display: flex;
+}
+.nedit-wrapper{
+    display: none;
 }
