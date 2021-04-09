@@ -1,142 +1,130 @@
-import React , {useState} from "react";
+import React, { useState } from "react";
 import Done from "./Done"
-import Todo from "./todo"
+import Todo from "./Todo"
 
-const Todos = () =>{
+const Todos = () => {
 
-    const[currentInput,setCurrentInput] = useState("");
-    const[currentEdit,setCurrentEdit] = useState("");
-    const[todos,setTodos] = useState([]);
-    const[err,setErr] = useState("");
-    const[done,setDone] = useState([]);
-    const[check,setCheck] = useState([]);
-    const[edit,setEdit] = useState([]);
+    const [currentInput, setCurrentInput] = useState("");
+    const [currentEdit, setCurrentEdit] = useState("");
+    const [todos, setTodos] = useState([]);
+    const [err, setErr] = useState("");
+    const [done, setDone] = useState([]);
+    const [check, setCheck] = useState([]);
+    const [edit, setEdit] = useState([]);
 
-    const handleOnInputChange = (e) =>{
+    const handleOnInputChange = (e) => {
         setCurrentInput(e.target.value);
     }
-    const handleOnEditChange = (e) =>{
+    const handleOnEditChange = (e) => {
         setCurrentEdit(e.target.value);
     }
 
-
-    const addOnList = () =>{
-        let newTodo=currentInput;
-        let todoArr=[...todos];
-        let k=true;
-
-        if (currentInput===""){
-            k=false;
+    const handleOnKeyPress = (event) => {
+        if (event.key === "Enter") {
+            addOnList();
         }
+    }
 
-        if (!todoArr.includes(newTodo) && k){
+    const addOnList = () => {
+        let newTodo = currentInput;
+        let todoArr = [...todos];
+
+        if (!todoArr.includes(newTodo) && currentInput !== "") {
             todoArr.push(newTodo);
             setTodos(todoArr);
             setCurrentInput("");
             setErr("");
-        }else{
-            if (k!==false){
+        } else {
+            if (currentInput !== "") {
                 setErr("this task already exists in list");
+            } else {
+                setErr("type something to input");
             }
         }
     }
 
-    const clearCompleted = () =>{
-        let arr=[...todos];
-        for (let i=0; i<done.length; i++){
-            arr=arr.filter((it) => it!==done[i]);
-        }
+    const clearCompleted = () => {
+        let arr = [...todos];
+        done.map((item) => {
+            arr= arr.filter((it) => it!==item);
+        })
         setTodos(arr);
         setDone([]);
     }
 
-    const clearCheckboxed = () =>{
-        let arr=[...todos];
-        let doneArr=[...done];
-        for (let i=0; i<check.length; i++){
-            arr = arr.filter((it) => it!==check[i]);
-
-            if (doneArr.includes(check[i])){
-                doneArr = doneArr.filter((it) => it!==check[i]);
-            }
-        }
-
+    const clearCheckboxed = () => {
+        let arr = [...todos];
+        check.map((item) => {
+            arr= arr.filter((it) => it!==item);
+        })
         setTodos(arr);
-        setDone(doneArr);
         setCheck([]);
     }
 
-    const clearAll = () =>{
+    const clearAll = () => {
         setDone([]);
         setTodos([]);
         setCheck([]);
     }
 
-    const Edit = (item) =>{
-        let arr=[...edit];
-        if (arr.includes(item)){
-            arr=arr.filter((it) => it!==item);
-        }else{
+    const Edit = (item) => {
+        let arr = [...edit];
+        if (arr.includes(item)) {
+            arr = arr.filter((it) => it !== item);
+        } else {
             arr.push(item);
         }
         setEdit(arr);
     }
 
-    const handleOnEdit = (idx , currentEdit) =>{
-        let arr=[...todos];
-        let arredit=[...edit];
-        if (currentEdit!=="" && !arr.includes(currentEdit)){
-            arr[idx]=currentEdit;
-            arredit=arredit.filter((it) => it!==arr[idx]);
+    const handleOnEdit = (idx, currentEdit) => {
+        let arr = [...todos];
+        let arredit = [...edit];
+        if (currentEdit !== "" && !arr.includes(currentEdit)) {
+            arr[idx] = currentEdit;
+            arredit = arredit.filter((it) => it !== arr[idx]);
             setTodos(arr);
             setEdit(arredit);
             setErr("");
-        }  else{
-            if (currentEdit!==""){
+        } else {
+            if (currentEdit !== "") {
                 setErr("this task already exists in list");
             }
         }
     }
 
-    const markAsCompleted = (idx) =>{
-        let doneArr=[...done];
-        let item=todos[idx];
+    const markAsCompleted = (idx) => {
+        let doneArr = [...done];
+        let item = todos[idx];
         doneArr.push(item);
         setDone(doneArr);
     }
 
-    const upItem = (idx) =>{
-        if (idx!==0){
-            let arr=[...todos];
+    const moveItem = (direction , idx) =>{
+        let arr=[...todos];
+        if (direction==="up" && idx!==0){
             arr[idx-1]=todos[idx];
             arr[idx]=todos[idx-1];
-            setTodos(arr);
-        }
-    }
-
-    const downItem = (idx) =>{
-        if (idx!==todos.length-1){
-            let arr=[...todos];
+        }else if(direction== "down" && idx!== todos.length-1){
             arr[idx+1]=todos[idx];
             arr[idx]=todos[idx+1];
-            setTodos(arr);
+        }
+        setTodos(arr);
+    }
+
+    const removeFromList = (idx) => {
+        let item = todos[idx];
+        setTodos(todos.filter((it) => it !== item));
+        if (done.includes(item)) {
+            setDone(done.filter((it) => it !== item));
         }
     }
 
-    
-    const removeFromList = (idx) =>{
-        let item =todos[idx];
-        setTodos(todos.filter((it) => it!==item));
-        if (done.includes(item)){
-            setDone(done.filter((it) => it!==item));
-        }
-    }
-
-    const onCheck = (item) =>{
-        let arr=[...check];
-        if (check.includes(item)){
-            arr=arr.filter((it) => it!==item);
-        }else{
+    const onCheck = (item) => {
+        let arr = [...check];
+        if (check.includes(item)) {
+            arr = arr.filter((it) => it !== item);
+        } else {
             arr.push(item);
         }
         setCheck(arr);
@@ -146,59 +134,61 @@ const Todos = () =>{
     return (
         <div className="container">
 
-                <div className="header">To-Do List</div>
+            <div className="header">To-Do List</div>
 
-                <div className="input-line">
-                    <input type="text" id="input" maxLength="20"
-                        placeholder="Input Task"
-                        onChange={handleOnInputChange}
-                        value={currentInput}
-                    />
-                    <button className="button" onClick={addOnList}>ADD</button>
-                    <button className="button" onClick={clearAll}>Clear</button>
-                    <button className="button" onClick={clearCompleted}>ClearC</button>
-                    <button className="button" onClick={clearCheckboxed}>ClearCB</button>
-                </div>
-
-                <div className="blank"></div>
-
-                <ul id="list-cont">
-
-                {todos.map((item,idx) =>{
-                    if (!done.includes(item)){
-                        return (
-                            <Todo 
-                            key={idx}
-                            idx={idx}
-                            item={item}
-                            editArr={edit}
-                            markAsCompleted={markAsCompleted}
-                            removeFromList={removeFromList}
-                            upItem={upItem}
-                            downItem={downItem}
-                            onCheck={onCheck}
-                            edit={Edit}
-                            handleOnEdit={handleOnEdit}
-                            handleOnEditChange={handleOnEditChange}
-                            />
-                        )}else{
-
-                        return(
-                            <Done
-                            key={idx}
-                            idx={idx}
-                            item={item}
-                            removeFromList={removeFromList}
-                            upItem={upItem}
-                            downItem={downItem}
-                            />
-                        )}
-                })}
-                </ul>
-                { err !== "" && ( <div id="pop-up">{err}</div> ) }
-
-                <div className="blank"></div>
+            <div className="input-line">
+                <input type="text" id="input" maxLength="20"
+                    placeholder="Input Task"
+                    onChange={handleOnInputChange}
+                    value={currentInput}
+                    onKeyPress={handleOnKeyPress}
+                />
+                <button className="button" onClick={addOnList}>ADD</button>
+                <button className="button" onClick={clearAll}>Clear</button>
+                <button className="button" onClick={clearCompleted}>ClearCompleted</button>
+                <button className="button" onClick={clearCheckboxed}>ClearCheckboxed</button>
             </div>
+
+            <div className="blank"></div>
+
+            <ul id="list-cont">
+
+                {todos.map((item, idx) => {
+                    if (!done.includes(item)) {
+                        return (
+                            <Todo
+                                key={idx}
+                                idx={idx}
+                                item={item}
+                                editArr={edit}
+                                markAsCompleted={markAsCompleted}
+                                removeFromList={removeFromList}
+                                moveItem={moveItem}
+                                onCheck={onCheck}
+                                edit={Edit}
+                                handleOnEdit={handleOnEdit}
+                                handleOnEditChange={handleOnEditChange}
+                                handleOnKeyPress={handleOnKeyPress}
+                            />
+                        )
+                    } else {
+
+                        return (
+                            <Done
+                                key={idx}
+                                idx={idx}
+                                item={item}
+                                removeFromList={removeFromList}
+                                moveItem={moveItem}
+                            />
+                        )
+                    }
+                })}
+            </ul>
+            { err !== "" && (<div id="pop-up">{err}</div>)}
+
+            <div className="blank"></div>
+        </div>
     );
 }
 

@@ -5,8 +5,8 @@ const Done = (props) => {
     return (
         <li className="list done-list" id={props.idx} >
             <div>
-                <button className="up" onClick={() => props.upItem(props.idx)}>UP</button>
-                <button className="down" onClick={() => props.downItem(props.idx)}>DOWN</button>
+                <button className="up" onClick={() => props.moveItem("up",props.idx)}>UP</button>
+                <button className="down" onClick={() => props.moveItem("down",props.idx)}>DOWN</button>
             </div>
             <div className="list-txt done-txt" >{props.item}</div>
             <div className="imgs">
