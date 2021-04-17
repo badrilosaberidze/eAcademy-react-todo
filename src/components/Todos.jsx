@@ -20,13 +20,9 @@ class Todos extends React.Component {
   addOnList = () => {
     let newTodo = this.state.currentInput;
     let todoArr = [...this.state.todos];
-    let k = true;
 
-    if (this.state.currentInput === "") {
-      k = false;
-    }
     if (this.state.currentInput.trim().length) {
-      if (!todoArr.includes(newTodo) && k) {
+      if (!todoArr.includes(newTodo) && this.state.currentInput !== "") {
         todoArr.push(newTodo);
         this.setState({
           todos: todoArr,
@@ -34,8 +30,7 @@ class Todos extends React.Component {
           err: "",
         });
       } else {
-        if (k !== false) {
-          console.log("works");
+        if (this.state.currentInput !== "") {
           this.setState({ err: "this task already exists in list" });
         } else {
           this.setState({ err: "type somthing to input" });
@@ -108,9 +103,7 @@ class Todos extends React.Component {
 
   clearCompleted = () => {
     let arr = [...this.state.todos];
-    for (let i = 0; i < this.state.done.length; i++) {
-      arr = arr.filter((it) => it !== this.state.done[i]);
-    }
+    this.state.done.forEach((item) => (arr = arr.filter((it) => it !== item)));
     this.setState({
       todos: arr,
       done: [],
@@ -120,13 +113,12 @@ class Todos extends React.Component {
   clearCheckboxed = () => {
     let arr = [...this.state.todos];
     let doneArr = [...this.state.done];
-    for (let i = 0; i < this.state.check.length; i++) {
-      arr = arr.filter((it) => it !== this.state.check[i]);
-
-      if (doneArr.includes(this.state.check[i])) {
-        doneArr = doneArr.filter((it) => it !== this.state.check[i]);
+    this.state.check.forEach((item) => {
+      if (doneArr.includes(item)) {
+        doneArr = doneArr.filter((it) => it !== item);
       }
-    }
+      arr = arr.filter((it) => it !== item);
+    });
 
     this.setState({
       todos: arr,
@@ -188,10 +180,10 @@ class Todos extends React.Component {
             Clear
           </button>
           <button className="button" onClick={this.clearCompleted}>
-            ClearC
+            ClearCompleted
           </button>
           <button className="button" onClick={this.clearCheckboxed}>
-            ClearCB
+            ClearCheckboxed
           </button>
         </div>
 
