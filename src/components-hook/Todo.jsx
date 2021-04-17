@@ -15,7 +15,10 @@ const Todo = (props) => {
   return (
     <li className="list" id={props.idx}>
       <div>
-        <button className="up" onClick={() => props.moveItem("up", props.idx)}>
+        <button
+          className="button up"
+          onClick={() => props.moveItem("up", props.idx)}
+        >
           UP
         </button>
         <button
