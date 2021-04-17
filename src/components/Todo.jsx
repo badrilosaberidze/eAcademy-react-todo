@@ -22,7 +22,7 @@ class Todo extends React.Component {
       <li className="list" id={this.props.idx}>
         <div>
           <button
-            className="up"
+            className="button up"
             onClick={() => this.props.upItem(this.props.idx)}
           >
             UP
