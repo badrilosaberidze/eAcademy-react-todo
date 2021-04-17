@@ -1,5 +1,5 @@
 import React from "react";
-import Todo from "./todo";
+import Todo from "./Todo";
 import Done from "./Done";
 
 class Todos extends React.Component {
@@ -25,7 +25,7 @@ class Todos extends React.Component {
     if (this.state.currentInput === "") {
       k = false;
     }
-    if (currentInput.trim().length) {
+    if (this.state.currentInput.trim().length) {
       if (!todoArr.includes(newTodo) && k) {
         todoArr.push(newTodo);
         this.setState({
