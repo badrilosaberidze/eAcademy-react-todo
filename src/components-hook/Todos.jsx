@@ -104,14 +104,21 @@ const Todos = () => {
 
   const moveItem = (direction, idx) => {
     let arr = [...todos];
+    let currentIndex;
+
     if (direction === "up" && idx !== 0) {
-      arr[idx - 1] = todos[idx];
-      arr[idx] = todos[idx - 1];
-    } else if (direction == "down" && idx !== todos.length - 1) {
-      arr[idx + 1] = todos[idx];
-      arr[idx] = todos[idx + 1];
+      currentIndex = idx - 1;
     }
-    setTodos(arr);
+
+    if (direction === "down" && idx !== todos.length - 1) {
+      currentIndex = idx + 1;
+    }
+
+    if (currentIndex !== undefined) {
+      arr[currentIndex] = todos[idx];
+      arr[idx] = todos[currentIndex];
+      setTodos(arr);
+    }
   };
 
   const removeFromList = (idx) => {
