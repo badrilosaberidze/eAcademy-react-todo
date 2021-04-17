@@ -25,19 +25,24 @@ class Todos extends React.Component {
     if (this.state.currentInput === "") {
       k = false;
     }
-
-    if (!todoArr.includes(newTodo) && k) {
-      todoArr.push(newTodo);
-      this.setState({
-        todos: todoArr,
-        currentInput: "",
-        err: "",
-      });
-    } else {
-      if (k !== false) {
-        console.log("works");
-        this.setState({ err: "this task already exists in list" });
+    if (currentInput.trim().length) {
+      if (!todoArr.includes(newTodo) && k) {
+        todoArr.push(newTodo);
+        this.setState({
+          todos: todoArr,
+          currentInput: "",
+          err: "",
+        });
+      } else {
+        if (k !== false) {
+          console.log("works");
+          this.setState({ err: "this task already exists in list" });
+        } else {
+          this.setState({ err: "type somthing to input" });
+        }
       }
+    } else {
+      this.setState({ err: "type something to input" });
     }
   };
 
