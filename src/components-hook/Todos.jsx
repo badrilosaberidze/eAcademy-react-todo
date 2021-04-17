@@ -47,7 +47,7 @@ const Todos = () => {
 
   const clearCompleted = () => {
     let arr = [...todos];
-    done.map((item) => {
+    done.forEach((item) => {
       arr = arr.filter((it) => it !== item);
     });
     setTodos(arr);
@@ -56,7 +56,7 @@ const Todos = () => {
 
   const clearCheckboxed = () => {
     let arr = [...todos];
-    check.map((item) => {
+    check.forEach((item) => {
       arr = arr.filter((it) => it !== item);
     });
     setTodos(arr);
